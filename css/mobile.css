@@ -1,0 +1,233 @@
+/* Mobile-first refinement layer — keeps the original black/white/silver design.
+   Loaded after style.css to resolve earlier, overlapping media queries. */
+
+/* Layout safety across screen sizes */
+html { -webkit-text-size-adjust: 100%; }
+:where(.hero, .hero-copy, .hero-visual, .about-grid, .about-card,
+  .education-layout, .education-intro, .education-timeline, .timeline-card,
+  .projects-grid, .project-card, .project-visual, .project-info,
+  .certificates-grid, .certificate-card, .contact-panel, .contact-content,
+  .contact-details) { min-width: 0; }
+:where(h1, h2, h3, p) { overflow-wrap: break-word; }
+img { height: auto; }
+
+@media (max-width: 1024px) {
+  .container { width: min(100% - 48px, 860px); }
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+  .hero h1 { font-size: clamp(42px, 5.7vw, 66px); letter-spacing: -0.055em; }
+  .hero-visual { transform: none; }
+  .section { padding-top: 100px; }
+  .education-layout { gap: 20px; }
+}
+
+/* Mid-sized tablets need a collapsible menu too; the desktop link row is too wide. */
+@media (min-width: 761px) and (max-width: 900px) {
+  .site-header { padding: 12px 0; }
+  .menu-toggle {
+    position: relative; z-index: 102; display: flex; width: 44px; height: 44px;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; border: 1px solid #e5e5e5; border-radius: 14px;
+    background: rgba(255,255,255,.94);
+  }
+  .menu-toggle span { width: 17px; height: 1.5px; background: #111; transition: transform .2s ease; }
+  .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.75px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+  .nav-links {
+    position: absolute; top: calc(100% + 5px); left: 24px; right: 24px;
+    display: flex; flex-direction: column; align-items: stretch; gap: 3px;
+    visibility: hidden; opacity: 0; transform: translateY(-8px);
+    pointer-events: none; border: 1px solid #e9e9e9; border-radius: 20px;
+    background: rgba(255,255,255,.97); box-shadow: 0 18px 55px rgba(0,0,0,.12);
+    padding: 14px; transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+  }
+  .nav-links.is-open { visibility: visible; opacity: 1; transform: none; pointer-events: auto; }
+  .nav-link { min-height: 44px; padding: 12px 14px; font-size: 14px; }
+  .nav-link::after { display: none; }
+  .nav-contact { min-height: 45px; justify-content: space-between; font-size: 13px; }
+}
+
+@media (max-width: 760px) {
+  html { scroll-padding-top: 80px; }
+  body { font-size: 14px; line-height: 1.65; }
+  .container { width: calc(100% - 40px); }
+  .section { padding-top: 78px; padding-bottom: 4px; scroll-margin-top: 76px; }
+  .ambient { max-width: 70vw; opacity: .14; }
+
+  /* Compact sticky header, accessible tap targets and contained menu */
+  .site-header { padding: 10px 0; background: rgba(255,255,255,.94); }
+  .navbar { gap: 12px; }
+  .brand-symbol { width: 40px; height: 40px; border-radius: 13px; font-size: 20px; }
+  .brand-name { font-size: 10px; letter-spacing: 1.7px; }
+  .menu-toggle { display: flex; width: 44px; height: 44px; flex-shrink: 0; }
+  .nav-links {
+    top: calc(100% + 5px); left: 20px; right: 20px;
+    max-height: min(75dvh, 520px); overflow-y: auto;
+    border: 1px solid #e9e9e9; border-radius: 20px;
+    padding: 12px; box-shadow: 0 18px 55px rgba(0,0,0,.12);
+  }
+  .nav-link { display: block; min-height: 44px; padding: 12px 14px; font-size: 14px; }
+  .nav-link.active { background: #f3f3f3; }
+  .nav-contact { min-height: 46px; font-size: 13px; padding: 12px 14px; }
+  .nav-links:not(.is-open) { pointer-events: none; }
+
+  /* The original desktop named areas need an explicit mobile reset.
+     Otherwise an implicit second grid column pushes the copy sideways. */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "copy" "visual";
+    gap: 20px; min-height: 0;
+    padding-top: 40px; padding-bottom: 8px;
+  }
+  .hero-copy { grid-area: copy; padding: 0; }
+  .availability { margin-bottom: 18px; padding: 8px 12px; font-size: 9px; letter-spacing: .11em; }
+  .hero h1 {
+    max-width: 670px;
+    font-size: clamp(38px, 9.5vw, 62px);
+    line-height: 1.08;
+    letter-spacing: -.055em;
+  }
+  .hero-description { max-width: 570px; margin-top: 19px; font-size: 14px; line-height: 1.75; }
+  .hero-actions { gap: 10px; margin-top: 23px; }
+  .hero-actions .button { flex: 1 1 auto; min-height: 49px; padding: 0 16px; gap: 12px; font-size: 12px; }
+  .hero-visual {
+    grid-area: visual;
+    width: 100%; min-height: 385px;
+    margin: 0; transform: none;
+  }
+  .hero-visual .visual-label { right: 3px; left: 3px; font-size: 7px; letter-spacing: 1.15px; }
+  .hero-visual .label-top { top: 13px; }
+  .hero-visual .label-bottom { bottom: 8px; }
+  .profile-object { width: min(245px, 62vw); height: min(290px, 74vw); border-radius: 36px; }
+  .profile-photo-frame { border-radius: 27px; }
+  .hero-visual .orbit-outer { width: min(315px, 83vw); height: min(315px, 83vw); }
+  .hero-visual .orbit-inner { width: min(245px, 68vw); height: min(245px, 68vw); }
+  .floating-card { max-width: 54%; padding: 10px 11px; gap: 7px; border-radius: 13px; }
+  .floating-card-top { top: 66px; left: 0; }
+  .floating-card-bottom { right: 0; bottom: 54px; }
+  .floating-icon { width: 30px; height: 30px; font-size: 17px; }
+  .floating-card .mini-label { font-size: 7px; letter-spacing: .7px; }
+  .floating-card strong { font-size: 9px; line-height: 1.3; }
+  .arrow-circle { width: 24px; height: 24px; margin-left: 0; font-size: 12px; }
+
+  .section-heading { gap: 8px; margin-bottom: 23px; }
+  .section-heading .eyebrow { margin-bottom: 9px; }
+  .section-heading h2 { font-size: clamp(34px, 8.5vw, 52px); line-height: 1.12; letter-spacing: -.055em; }
+  .section-index { color: #888; font-size: 10px; }
+  .section-description { margin-top: 0; font-size: 13px; line-height: 1.7; }
+
+  .about-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .about-card, .about-card-wide { min-height: 0; border-radius: 22px; padding: 24px; }
+  .about-card h3 { margin-top: 24px; font-size: clamp(24px, 6.8vw, 32px); line-height: 1.2; }
+  .about-card > p { margin-top: 14px; font-size: 13px; line-height: 1.78; }
+  .about-card-dark .quote-mark { margin-top: 18px; }
+  .about-card-dark h3 { margin-top: 10px; }
+  .about-card-wide { grid-template-columns: minmax(0, 1fr); gap: 15px; }
+  .about-card-wide h3 { font-size: 25px; }
+  .interest-list { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 16px; }
+  .interest-list span { font-size: 11px; padding: 12px 0; }
+
+  .education-layout { grid-template-columns: minmax(0,1fr); gap: 21px; }
+  .education-intro { position: relative; top: auto; padding: 24px; border-radius: 22px; }
+  .education-symbol { margin-bottom: 18px; width: 55px; height: 55px; font-size: 26px; }
+  .education-intro h3 { font-size: 27px; }
+  .education-intro > p:last-child { font-size: 13px; line-height: 1.75; }
+  .education-timeline { margin-left: 0; padding-left: 18px; gap: 14px; }
+  .education-timeline::before { left: 2px; }
+  .timeline-dot { left: -20px; }
+  .timeline-card { padding: 22px; border-radius: 21px; }
+  .timeline-card h3 { margin-top: 14px; font-size: 21px; }
+  .timeline-top { flex-direction: row; align-items: center; flex-wrap: wrap; }
+  .timeline-school { font-size: 12px; }
+  .timeline-card > p:not(.timeline-school) { font-size: 12px; line-height: 1.75; }
+
+  .projects-grid { grid-template-columns: minmax(0,1fr); gap: 17px; }
+  .project-card, .project-featured {
+    display: flex; grid-column: auto; flex-direction: column;
+    border-radius: 23px; overflow: hidden;
+  }
+  .project-visual, .project-featured .project-visual,
+  .project-preview-mobile, .project-preview-web, .project-preview-schedly {
+    width: 100%; min-height: 0; height: auto; aspect-ratio: 1.35 / 1;
+    padding: 39px 18px 37px;
+  }
+  .project-screenshot, .project-featured .project-screenshot {
+    display: block; width: 100%; max-width: 470px;
+    height: 100%; max-height: 235px;
+    object-fit: contain; transform: none;
+  }
+  .project-number { top: 15px; left: 17px; font-size: 8px; }
+  .project-art-label { right: 17px; bottom: 14px; font-size: 7px; }
+  .project-info, .project-featured .project-info {
+    min-height: 0; padding: 21px; gap: 11px;
+    align-items: stretch;
+  }
+  .project-info h3 { font-size: clamp(20px, 5.8vw, 24px); line-height: 1.3; overflow-wrap: anywhere; }
+  .project-info > p { font-size: 13px; line-height: 1.7; }
+  .project-link { margin-top: 8px; padding-top: 15px; min-height: 43px; align-items: center; font-size: 10px; letter-spacing: .07em; }
+
+  .certificates-grid { grid-template-columns: minmax(0, 1fr); gap: 15px; margin-top: 22px; }
+  .certificate-card { border-radius: 22px; }
+  .certificate-preview { min-height: 0; height: auto; aspect-ratio: 1.5 / 1; }
+  .certificate-preview img { object-fit: contain; }
+  .certificate-info { padding: 21px; }
+  .certificate-info h3 { font-size: 21px; }
+  .certificate-action { min-height: 44px; align-items: center; }
+
+  .contact-panel { display: grid; grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 22px; padding: 25px 21px; border-radius: 24px; }
+  .contact-content h2 { font-size: clamp(34px, 8.5vw, 51px); line-height: 1.1; letter-spacing: -.05em; }
+  .contact-content > p:not(.eyebrow) { margin-top: 17px; font-size: 13px; line-height: 1.8; }
+  .contact-content .button { min-height: 49px; margin-top: 21px; }
+  .contact-details { padding: 18px 20px; border-radius: 17px; }
+  .contact-details > a { min-height: 48px; font-size: 13px; }
+  .contact-orb { right: -90px; bottom: 70px; opacity: .4; }
+  .site-footer { grid-template-columns: 1fr auto; gap: 15px; margin-top: 68px; padding-top: 24px; padding-bottom: 26px; }
+  .site-footer > p { font-size: 9px; }
+  .copyright { font-size: 10px; }
+  .back-to-top { min-height: 44px; display: inline-flex; align-items: center; }
+
+  /* Touchscreen users should not have elements dancing while scrolling. */
+  #glass-object, .floating-card, #hero-visual .orbit { animation: none; }
+  .project-card, .project-visual, .project-screenshot { transform: none !important; }
+  .js-ready .reveal { transform: none; transition: opacity .45s ease; }
+}
+
+@media (max-width: 480px) {
+  .container { width: calc(100% - 34px); }
+  .nav-links { left: 17px; right: 17px; }
+  .hero { padding-top: 30px; gap: 15px; }
+  .hero h1 { font-size: clamp(35px, 9.5vw, 46px); }
+  .hero-description { font-size: 13px; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .button { width: 100%; flex: none; justify-content: space-between; }
+  .hero-visual { min-height: 345px; }
+  .profile-object { width: min(220px, 60vw); height: min(262px, 71vw); }
+  .floating-card { max-width: 49%; }
+  .floating-card-top { top: 50px; }
+  .floating-card-bottom { bottom: 42px; }
+  .interest-list { grid-template-columns: minmax(0, 1fr); }
+  .project-visual, .project-featured .project-visual,
+  .project-preview-mobile, .project-preview-web, .project-preview-schedly { aspect-ratio: 1.35 / 1; padding: 35px 14px 32px; }
+  .project-info, .project-featured .project-info { padding: 19px; }
+  .section { padding-top: 68px; }
+  .about-card, .about-card-wide { padding: 21px; }
+  .site-footer > p { max-width: 260px; }
+}
+
+@media (max-width: 355px) {
+  .brand-name { font-size: 9px; letter-spacing: 1px; }
+  .hero h1 { font-size: 33px; }
+  .hero-visual { min-height: 310px; }
+  .profile-object { width: 185px; height: 225px; }
+  .floating-card strong { font-size: 8px; }
+  .floating-icon { display: none; }
+  .hero-visual .visual-label { font-size: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-ready .reveal { opacity: 1; transform: none; }
+  #glass-object, .floating-card, #hero-visual .orbit { animation: none !important; }
+}
+/* Keyboard navigation affordance */
+.skip-link { position: fixed; z-index: 1000; top: 8px; left: 12px; padding: 12px 16px; color: white; background: #111; border-radius: 10px; transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }

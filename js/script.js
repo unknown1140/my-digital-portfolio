@@ -39,6 +39,11 @@
        navigationLinks.forEach((link) => {
          link.addEventListener("click", closeMenu);
        });
+
+       // A desktop resize should never leave the menu stuck open.
+       window.addEventListener("resize", () => {
+         if (window.innerWidth > 900) closeMenu();
+       });
    
        document.addEventListener("click", (event) => {
          if (
@@ -70,7 +75,9 @@
        element.classList.add("reveal");
      });
    
-     if ("IntersectionObserver" in window) {
+     if ("IntersectionObserver" in window &&
+         !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+         window.innerWidth > 760) {
        const revealObserver = new IntersectionObserver(
          (entries, observer) => {
            entries.forEach((entry) => {
@@ -275,7 +282,9 @@
     "(prefers-reduced-motion: reduce)"
   );
 
-  if (reduceMotion.matches) return;
+  if (reduceMotion.matches ||
+      window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+      window.innerWidth <= 760) return;
 
   let ticking = false;
 
@@ -347,7 +356,8 @@
     "(prefers-reduced-motion: reduce)"
   );
 
-  if (reduceMotion.matches) {
+  if (reduceMotion.matches || window.innerWidth <= 760 ||
+      window.matchMedia("(pointer: coarse)").matches) {
     projectCards.forEach((card) => {
       card.classList.add("is-project-visible");
     });
@@ -387,7 +397,8 @@
 
   if (!visuals.length) return;
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches ||
+      window.innerWidth <= 760) {
     return;
   }
 
