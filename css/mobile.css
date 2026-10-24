@@ -231,3 +231,141 @@ img { height: auto; }
 /* Keyboard navigation affordance */
 .skip-link { position: fixed; z-index: 1000; top: 8px; left: 12px; padding: 12px 16px; color: white; background: #111; border-radius: 10px; transform: translateY(-160%); }
 .skip-link:focus { transform: translateY(0); }
+
+
+/* ===========================================================
+   V. / MOBILE EDITORIAL FINISH — OCT 2026
+   An intentionally quieter small-screen experience.
+   Desktop design stays intact; the portrait is unobstructed.
+   =========================================================== */
+html, body { max-width: 100%; overflow-x: clip; }
+img, video, svg { max-width: 100%; }
+
+@media (max-width: 900px) {
+  .menu-toggle { -webkit-tap-highlight-color: transparent; }
+  .nav-links { z-index: 110; }
+  .nav-contact { display: flex; }
+  .nav-links .nav-link:focus-visible,
+  .nav-links .nav-contact:focus-visible { outline-offset: 2px; }
+}
+
+@media (max-width: 600px) {
+  :root { --radius-xl: 24px; }
+  html { scroll-padding-top: 76px; }
+  body { font-size: 14px; line-height: 1.7; }
+  body::before { opacity: .25; }
+  .ambient { display: none; }
+  .container { width: min(calc(100% - 40px), 460px); }
+  .section { padding-top: 68px; padding-bottom: 0; scroll-margin-top: 76px; }
+
+  /* The navigation stays slim and doesn't overlap the content. */
+  .site-header { padding: 9px 0; background: rgba(255,255,255,.97); border-bottom: 1px solid #ececec; }
+  .navbar { min-height: 44px; }
+  .brand { gap: 9px; }
+  .brand-symbol { width: 39px; height: 39px; border-radius: 12px; font-size: 19px; }
+  .brand-name { font-size: 10px; letter-spacing: 1.45px; }
+  .menu-toggle { width: 44px; height: 44px; border-radius: 13px; background: #fff; }
+  .nav-links { top: calc(100% + 7px); left: 20px; right: 20px; gap: 2px; padding: 10px; border-radius: 18px; border: 1px solid #e9e9e9; background: #fff; box-shadow: 0 18px 50px rgba(0,0,0,.10); }
+  .nav-link { font-size: 14px; font-weight: 600; padding: 12px 14px; min-height: 45px; border-radius: 10px; }
+  .nav-contact { min-height: 46px; border-radius: 11px; margin-top: 6px; background: #151515; color: white; padding: 12px 14px; }
+  .nav-contact:hover { color: white; }
+
+  /* No 3D ornaments on narrow screens: give the image room. */
+  .hero { grid-template-columns: minmax(0,1fr); grid-template-areas: 'copy' 'visual'; gap: 24px; padding-top: 35px; padding-bottom: 0; }
+  .hero-copy { padding: 0; }
+  .availability { margin-bottom: 17px; padding: 7px 11px; font-size: 9px; font-weight: 700; letter-spacing: .075em; }
+  .hero h1 { max-width: 480px; font-size: clamp(36px, 9vw, 49px); line-height: 1.075; letter-spacing: -.058em; }
+  .hero-description { font-size: 13.5px; line-height: 1.73; margin-top: 17px; color: #606060; }
+  .hero-actions { margin-top: 23px; gap: 9px; }
+  .hero-actions .button { min-height: 48px; padding: 0 18px; font-size: 12px; }
+  .hero-visual { width: 100%; min-height: 285px; height: 285px; display: flex; align-items: center; justify-content: center; margin: 0; border: 1px solid #e7e7e7; border-radius: 23px; background: linear-gradient(145deg,#f9f9f9 0%,#f1f1f1 62%,#eaeaea 100%); overflow: hidden; }
+  .hero-visual .orbit,
+  .hero-visual .floating-card,
+  .hero-visual .visual-label { display: none; }
+  .profile-object { width: 204px; height: 248px; min-width: 0; margin: 0; border: 1px solid #d4d4d4; border-radius: 22px; box-shadow: 0 15px 36px rgba(0,0,0,.13); }
+  .profile-photo-frame { width: calc(100% - 10px); height: calc(100% - 10px); border-radius: 17px; }
+  #glass-object { animation: none; transform: none !important; }
+
+  /* Consistent headings and vertical rhythm. */
+  .section-heading { margin-bottom: 21px; gap: 0; }
+  .section-heading .eyebrow { margin-bottom: 9px; }
+  .section-heading h2 { font-size: clamp(33px, 8.2vw, 42px); line-height: 1.13; letter-spacing: -.055em; }
+  .section-index { display: none; }
+  .eyebrow { font-size: 9px; letter-spacing: 1.55px; }
+  .section-description { margin: -1px 0 24px; font-size: 13px; line-height: 1.7; }
+
+  /* Single-column cards with the same interior rhythm. */
+  .about-grid { gap: 12px; }
+  .about-card, .about-card-wide { border-radius: 19px; padding: 22px; box-shadow: 0 6px 24px rgba(0,0,0,.035); }
+  .about-card h3 { margin-top: 18px; font-size: clamp(23px, 6.1vw, 28px); line-height: 1.22; letter-spacing: -.038em; }
+  .about-card > p { margin-top: 12px; font-size: 13px; line-height: 1.72; }
+  .about-tags { gap: 6px; margin-top: 16px; }
+  .about-tags span { font-size: 10px; padding: 7px 10px; }
+  .about-card-dark .quote-mark { margin-top: 12px; }
+  .about-card-dark h3 { margin-top: 8px; }
+  .about-card-wide { gap: 14px; }
+  .about-card-wide h3 { font-size: 23px; }
+  .interest-list { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0 14px; }
+  .interest-list span { min-width: 0; font-size: 10.5px; padding: 11px 0; line-height: 1.4; }
+
+  .education-layout { gap: 20px; }
+  .education-intro { padding: 21px; border-radius: 19px; }
+  .education-intro h3 { font-size: 25px; }
+  .education-symbol { width: 46px; height: 46px; font-size: 23px; margin-bottom: 14px; }
+  .education-timeline { gap: 12px; }
+  .timeline-card { padding: 20px; border-radius: 18px; }
+  .timeline-card h3 { font-size: 20px; margin-top: 11px; }
+  .timeline-top { gap: 5px 12px; }
+  .timeline-date { font-size: 10px; }
+
+  /* Compact project image + generous readable text. */
+  .projects-grid { gap: 14px; }
+  .project-card, .project-featured { border-radius: 19px; box-shadow: 0 7px 26px rgba(0,0,0,.045); }
+  .project-visual, .project-featured .project-visual,
+  .project-preview-mobile, .project-preview-web, .project-preview-schedly {
+    aspect-ratio: 16 / 10; min-height: 0; height: auto; width: 100%; padding: 28px 16px 23px;
+  }
+  .project-screenshot, .project-featured .project-screenshot { width: 100%; height: 100%; max-height: 202px; object-fit: contain; }
+  .project-number { top: 11px; left: 15px; }
+  .project-art-label { right: 15px; bottom: 10px; }
+  .project-info, .project-featured .project-info { padding: 20px; gap: 10px; }
+  .project-meta { font-size: 9px; }
+  .project-info h3 { font-size: clamp(20px, 5.5vw, 24px); letter-spacing: -.04em; line-height: 1.25; }
+  .project-info > p { font-size: 13px; line-height: 1.7; }
+  .project-link { margin-top: 5px; padding-top: 12px; min-height: 42px; font-size: 10px; letter-spacing: .045em; }
+
+  .certificates-grid { gap: 13px; margin-top: 18px; }
+  .certificate-card { border-radius: 19px; }
+  .certificate-preview { height: auto; aspect-ratio: 16 / 10; padding: 17px; }
+  .certificate-preview img { width: 100%; height: 100%; max-height: 192px; object-fit: contain; }
+  .certificate-info { padding: 20px; gap: 8px; }
+  .certificate-info h3 { font-size: 19px; line-height: 1.3; }
+  .certificate-info > p { font-size: 12.5px; }
+  .certificate-action { min-height: 43px; margin-top: 3px; padding-top: 12px; font-size: 10px; letter-spacing: .06em; }
+
+  .contact-panel { gap: 21px; padding: 23px 20px; border-radius: 20px; }
+  .contact-content h2 { font-size: clamp(33px,8vw,42px); letter-spacing: -.054em; }
+  .contact-content > p:not(.eyebrow) { font-size: 13px; margin-top: 13px; line-height: 1.7; }
+  .contact-content .button { width: 100%; justify-content: space-between; margin-top: 20px; }
+  .contact-details { padding: 14px 18px; border-radius: 14px; }
+  .contact-orb { display: none; }
+  .site-footer { margin-top: 56px; gap: 14px; padding-top: 20px; padding-bottom: 28px; }
+  .footer-brand .brand-symbol { width: 34px; height: 34px; }
+  .footer-brand .brand-name { font-size: 9px; }
+  .site-footer > p { font-size: 9px; line-height: 1.6; }
+  .copyright { font-size: 10px; }
+  .back-to-top { font-size: 10px; }
+  /* Touch devices should feel stable, not hover-lift on tap. */
+  .project-card, .certificate-card, .about-card { transform: none !important; }
+}
+
+@media (max-width: 359px) {
+  .container { width: calc(100% - 32px); }
+  .nav-links { left: 16px; right: 16px; }
+  .hero h1 { font-size: 34px; }
+  .hero-visual { height: 254px; min-height: 254px; }
+  .profile-object { width: 180px; height: 219px; }
+  .interest-list { grid-template-columns: minmax(0,1fr); }
+  .availability { font-size: 8px; letter-spacing: .04em; }
+  .about-card,.about-card-wide { padding: 19px; }
+}
